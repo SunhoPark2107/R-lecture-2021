@@ -1,0 +1,42 @@
+data frame: 행(samples) 과 열로 이루어진 데이터 셋. 
+
+1차원 : vector
+2차원 : matri
+3차원 : array
+
+str(cars) => cars 라는 데이터 셋의 요약 정보
+
+plot(women) => R 에서 제공하는 오리지널 그래프. (향후 ggplot으로 더 나은 그래프)
+
+그래프 위 export 누르면 pdf또는 image 파일로 저장 가능.
+
+그래프 색 다양하게 지정하는 방법
+
+plot(cars, col='blue') = 산점도 점 색 지정
+
+plot(cars, col='blue', xlab='threh', ylab='거리') = 축의 이름 지정
+
+plot(cars, col='blue', xlab='threh', ylab='거리', pch=19) =산점도 점의 모양 변경
+
+plot(cars) => 산점도(scatter plot)
+
+데이터를 보면 수를 머리로 생각하는 게 아니라 눈으로 먼저 확인해야 한다.
+
+anscombe => ??? 질문하기. 이게 뭘 의미하는거지?
+
+anscombe를 꼭 눈으로 확인하기.
+
+
+도움말 사용법 => ?함수  + enter
+
+ex. ?plot 
+
+매뉴얼 읽거나, 구글링 하거나. 필요하면 그때 그때 찾아서 보는 습관 들이기.
+
+에러메시지 나오면 바로 긁어서 구글링 하기 => 스택 오버플로우로 연결
+
+
+*기본상식
+
+한글 => 16비트 완성형 => euc-kr(ansi) (16비트로 되어 있는 완성형)
+
