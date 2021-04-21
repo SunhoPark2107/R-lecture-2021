@@ -159,3 +159,4 @@ rmarkdown, knitr 두 가지 패키지 설치.
 
 청크 생성 ctrl+alt+i
 
+모두 마친 후 knit document 하기. (ctrl+shift+K)
