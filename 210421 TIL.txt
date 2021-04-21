@@ -26,6 +26,13 @@ anscombe => ??? 질문하기. 이게 뭘 의미하는거지?
 
 anscombe를 꼭 눈으로 확인하기.
 
+plot(anscombe$x1, anscombe$y1)
+.
+.
+.            $x4          $y4
+
+
+
 
 도움말 사용법 => ?함수  + enter
 
@@ -47,4 +54,66 @@ windows표준은 euc-kr(ansi)
 cmd에서 한글이 깨지는 이유.
 
 메모장 좌우스크롤바 하단에 보면 어떤 인코딩 형식인지 확인 가능. (해당 경우 utf-8)
+
+개발툴 잘 쓰려면 '단축키' 쓰는 데 익숙해 져야 한다.
+
+
+스크립트에서는 ctrl+ent 로 실행 또는 상단에 Run클릭하여 실행
+**  일반적으로 한 줄씩 실행해야 한다!
+*** 두 줄을 선택한 후 상단에 있는 'Run' 버튼을 누르면 한꺼번에 실행됨.
+
+콘솔에서는 그냥 ent 누르면 실행된다.
+
+# => 코드에 영향 없는 설명, 주석 등 작성할 때. 단, 문자와 # 사이에는 반드시 한칸의 공백 필요.
+
+
+작업 디렉토리 지정
+
+getwd()  => get work directory (현재 작업 디렉토리 어디?)
+setwd('\위치')  => 작업 디렉토리 '\위치' 로 변경
+
+R은 다양한 라이브러리(패키지)가 장점. => 계속 추가되고 있으며, 현재 1.7만개의 라이브러리. CRAN사이트에서 확인 및 다운 가능
+
+library(dplyr)
+library(ggplot2)
+
+search() => 사용 가능한 패키지 및 개발 도구 보여 줌.
+
+라이브러리 설치
+install.packages("라이브러리명")
+
+라이브러리 부착(사용시 "이번 스크립트에서는 이 패키지 쓸거야~" 하는 것.)
+library(라이브러리명)
+
+head(데이터세트명)
+
+
+
+iris 데이터 분석
+
+3가지 붓꽃종
+setosa
+versicolor
+virginica
+
+pca(주성분 분석) 2차원*2차원
+
+
+
+페이지 65
+
+csv 파일 => comma seperate value
+tsv 파일 => tab seperate value
+
+google 에서 tips.csv 검색하면 깃허브 페이지 나옴
+
+** Raw데이터 열어서 거기 url을 복사해야 함!!
+
+tips=read.csv('raw 데이터 url')
+
+# ggplot2 그림 그려보기
+tips %>% ggplot(aes(size))+geom_histogram() =>히스토그램
+                               _point()     => 산점도
+
+
 
