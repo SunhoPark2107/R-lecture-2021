@@ -117,3 +117,45 @@ tips %>% ggplot(aes(size))+geom_histogram() =>히스토그램
 
 
 
+global option - incording: code - saving - Default text incording 설정
+              - dafault working directory - general 에서 browse 설정
+
+
+
+a=1 여기서 "=" 은 "할당(assign)" 이다.
+즉, a<-1 과 같다. 주로 a<-1로 씀.(in R)
+
+c=a+b  a+b를 c에 할당한다는 의미.
+
+** (L-Value) = (R-Value) R에서 L-Value는 위치이고, R-Value는 결과값이다.
+따라서 R에서는 x+y=z가 될 수 없다. 왜냐면 x+y는 연산이 들어갔으므로 위치가 될 수 없기 때문이다.
+
+
+typeof(x) => x변수의 타입을 구하는 것
+
+"double" => "실수"라는 뜻.
+
+
+and 는 논리 곱 OR 은 논리 합
+
+x     y     x and y   x or y    XOR(배타적논리합. 주어진 2개의 명제 가운데 1개만 참일 경우. 구글링)
+F     F       F         F        F
+F     T       F         T        T
+T     F       F         T        T
+T     T       T         T        F
+
+
+console이랑 environment 지저분해 지면 창 위에 빗자루 모양 누르면 다 없어짐.!
+
+mark down 개념
+
+# mark down
+# R로 코드를 만들었다면, 적절하게 텍스트 추가하여 계단식으로 배열하면 그 자체로 보고서가 완성됨
+# 이후 html 파일로 변환할 수 있음.
+
+rmarkdown, knitr 두 가지 패키지 설치.
+
+단축키
+
+청크 생성 ctrl+alt+i
+
