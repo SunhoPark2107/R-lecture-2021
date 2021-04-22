@@ -63,20 +63,21 @@ merge(patients1, patients2, by = 'name')       # 기준으로 삼을 공통 변�
 patients2 <- data.frame(blood_type)
 merge(patients1, patients2)                    # 기준으로 삼을 공통 변수가 없는 경우. 중복 데이터가 막 생기는 것은 물론이요 데이터끼리 매치도 안 된다. 이런 데이터는 쓸 수 없음.
 
+# 데이터 프레임에 행 추가 (**merge 실행시키지 않은 상태에서 돌릴 것.)
+length(patients1$name)
+patients1[length(patients1$name)+1,] <- c('몽룡',19,'M')
+patients1
+patients2
+patients2[length(patients2$name)+1,] <- c('영희', 'A')
+patients2
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+# merge
+# inner join
+merge(patients1, patients2)                    # 공통변수인 name이 기준이 되어 양쪽 모두에 있는 데이터만 나옴.
+# left outer join
+merge(patients1, patients2, all.x = T)           # 두 데이터프레임 중, x의 데이터는 모두 포함된 프레임 생성.
+# (Full) outer join
+merge(patients1, patients2, all.x = T, all.y = T) # 두 데이터 프레임에 있는 모든 샘플이 있는 프레임 생성.
 
 
 
