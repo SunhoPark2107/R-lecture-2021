@@ -14,7 +14,6 @@ df[df$gender == 'F',]
 df[df$gender == 'M' & df$age > 25,]
 
 # 2. if문          # indentation 주의할 것! 코드의 가독성도 있지만, 다른 언어에서는 indentation으로 if문 시작/끝 결정됨.
-                   # 근데 indentation을 어떻게 하는건데유...?
 x <- 5
 if (x%%2 == 0) {
     print('짝수입니다')
@@ -23,7 +22,7 @@ if (x%%2 == 0) {
 }
 
 x <- 5
-if (x>0) {                    # x>0 대신 x>1e-10으로 표현하는 게 더 낫다. (0.0000000001) (이유는요 교수님...?ㅠㅠ)
+if (x>0) {                    # x>0 대신 x>1e-10으로 표현하는 게 더 낫다. (0.0000000001) (이유는...?)
     print('양수')
 } else if (x>0) {
     print('음수')
@@ -37,11 +36,11 @@ pass <- ifelse(score>=60, '합격', '불합격')
 pass
 
 getwd()
-students <- read.csv('data/students.csv')     # 교수님은 euc-kr로 인코딩하심. 근데 안해도 읽혀지는데? 왜지?
+students <- read.csv('data/students.csv')     # 교수님은 euc-kr로 인코딩하심
 students
 options(digits=4)                             # 전체 자리 유효 숫자 지정 가능. (R 소수점 자리 지정 구글링해보기.)
 apply(students[,2:4],1,mean)
-students['평균'] = c(apply(students[,2:4],1,mean))
+students['평균'] = apply(students[,2:4],1,mean)    # 데이터프레임에서 변수(열) 추가하는건 원래 이런 식으로 한다고 한다... 난 몰랐지 ㅠㅠ
 students
 students$'평균'                               # 한글도 변수명으로 사용 가능하다.
 students['학점'] = ifelse(students$평균 >=90, 'A', 

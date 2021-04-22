@@ -68,8 +68,9 @@ length(patients1$name)
 patients1[length(patients1$name)+1,] <- c('몽룡',19,'M')
 patients1
 patients2
-patients2[length(patients2$name)+1,] <- c('영희', 'A')
-patients2
+patients2[length(patients2$name)+1,] <- c('영희', 'A')   # length가 열 개수를 셈.
+# 그래서 행 size = patients2의 열 개수+1 이런 식으로 되어서 patients2[length(patients2)+1,] 이렇게 치면 잘 안 되었던 것.
+
 
 # merge
 # inner join
