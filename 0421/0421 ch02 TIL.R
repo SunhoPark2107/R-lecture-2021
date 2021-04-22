@@ -24,7 +24,7 @@ tail(iris)          #head와 반대로 tail은 끝에서부터 일부 데이터�
 plot(iris)
 
 # 두 속성의 상관 관계 length 와 width에 따른 종 산점도
-plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species, pch=18)
+plot(iris$Petal.Length, iris$Petal.Width, col=iris$Species, pch=18, title("iris is beautiful"))
 
 # 종이 각각 어떤 색으로 표현되어있는지 알기 위해 범례(legend) 띄워야 함.
 # 너무 어려워서 다음에 하기로 한다. ㅋㅋㅋ
@@ -46,4 +46,6 @@ tips %>% ggplot(aes(total_bill, tip))+geom_point(aes(col=day, pch=sex), size=3)
 
 # 시간대별(점심, 저녁) tip 분포.
 tips %>% ggplot(aes(total_bill, tip))+geom_point(aes(col=day, pch=time), size=3)
+
+tips %>% ggplot(aes(total_bill, tip))+geom_point(aes(col=day, pch=time), size=3) + labs(title="Tips by two conditions")
 
