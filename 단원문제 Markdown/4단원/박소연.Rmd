@@ -43,7 +43,7 @@ mul_sum(4, 16)
 
 
 
-# install.packages("hflights")와 library(hflights) 명령어를 이용하여 hflights 데이터를 활용할 수 있게 하자. hflights 데이터에는 총 몇 개의 NA가 존재하는가?
+### install.packages("hflights")와 library(hflights) 명령어를 이용하여 hflights 데이터를 활용할 수 있게 하자. hflights 데이터에는 총 몇 개의 NA가 존재하는가?
 
 ```{r}
 install.packages("hflights", repos = "http://cran.us.r-project.org")

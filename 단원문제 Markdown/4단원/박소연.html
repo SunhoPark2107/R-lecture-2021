@@ -198,16 +198,15 @@ print(sum)</code></pre>
 mul_sum(4, 16)</code></pre>
 <pre><code>## [1] 40</code></pre>
 </div>
-</div>
-<div id="install.packageshflights와-libraryhflights-명령어를-이용하여-hflights-데이터를-활용할-수-있게-하자.-hflights-데이터에는-총-몇-개의-na가-존재하는가" class="section level1">
-<h1>install.packages(“hflights”)와 library(hflights) 명령어를 이용하여 hflights 데이터를 활용할 수 있게 하자. hflights 데이터에는 총 몇 개의 NA가 존재하는가?</h1>
+<div id="install.packageshflights와-libraryhflights-명령어를-이용하여-hflights-데이터를-활용할-수-있게-하자.-hflights-데이터에는-총-몇-개의-na가-존재하는가" class="section level3">
+<h3>install.packages(“hflights”)와 library(hflights) 명령어를 이용하여 hflights 데이터를 활용할 수 있게 하자. hflights 데이터에는 총 몇 개의 NA가 존재하는가?</h3>
 <pre class="r"><code>install.packages(&quot;hflights&quot;, repos = &quot;http://cran.us.r-project.org&quot;)</code></pre>
 <pre><code>## Installing package into &#39;C:/Users/CPB06GameN/Documents/R/win-library/4.0&#39;
 ## (as &#39;lib&#39; is unspecified)</code></pre>
 <pre><code>## package &#39;hflights&#39; successfully unpacked and MD5 sums checked
 ## 
 ## The downloaded binary packages are in
-##  C:\Users\CPB06GameN\AppData\Local\Temp\RtmpquFJZU\downloaded_packages</code></pre>
+##  C:\Users\CPB06GameN\AppData\Local\Temp\RtmpI5q7Kx\downloaded_packages</code></pre>
 <pre class="r"><code>library(hflights)
 
 str(hflights)</code></pre>
@@ -235,6 +234,7 @@ str(hflights)</code></pre>
 ##  $ Diverted         : int  0 0 0 0 0 0 0 0 0 0 ...</code></pre>
 <pre class="r"><code>sum(is.na(hflights))</code></pre>
 <pre><code>## [1] 25755</code></pre>
+</div>
 <div id="hflights-데이터에서-비행시간이-가장-긴-데이터는-몇-시간-몇-분인가" class="section level3">
 <h3>hflights 데이터에서 비행시간이 가장 긴 데이터는 몇 시간 몇 분인가?</h3>
 <pre class="r"><code>paste0(max(na.omit(hflights$AirTime)) %/% 60, &quot;시간 &quot;, max(na.omit(hflights$AirTime)) %% 60, &quot;분&quot;)</code></pre>
