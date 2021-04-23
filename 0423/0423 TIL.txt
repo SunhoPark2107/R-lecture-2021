@@ -1,0 +1,35 @@
+list <- append : 붙이기(삽입)
+
+sum <-  s <- s + 1
+
+s <- s + ()
+
+
+
+재귀함수
+
+피보나치수열 : 앞의 두 수의 합이 바로 뒤의 수가 되는 배열.
+fibo <- function(n){
+
+    fibo1 = 1
+
+    fibo2 = 1
+
+    for(i in 3:n){
+
+        tmp = fibo1+fibo2
+
+        fibo1 = fibo2
+
+        fibo2 = tmp
+
+    }
+
+    return(fibo2)
+
+}
+
+
+box plot 
+
+설명을 들어도 모르겠따...
