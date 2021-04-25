@@ -160,3 +160,12 @@ rmarkdown, knitr 두 가지 패키지 설치.
 청크 생성 ctrl+alt+i
 
 모두 마친 후 knit document 하기. (ctrl+shift+K)
+
+
+dplyr : %>%  (파이프)
+
+dplyr package 기능 => 데이터를 조작할때 쓰이는 패키지.
+
+데이터를 가지고 평균도 내보고 싶고, groupby, filter, 등등 할 때
+dplyr에서 제공하는 함수들이 있음.
+

@@ -1,0 +1,32 @@
+R을 Programfiles가 아닌 C드라이브 바로 밑에 폴더 생성하여 설치해야 하는 이유.
+
+패키지 설치 시 다음과 같은 라이브러리 경로 오류가 난다.
+
+
+> install.packages("data table")
+WARNING: Rtools is required to build R packages but is not currently installed. Please download and install the appropriate version of Rtools before proceeding:
+
+https://cran.rstudio.com/bin/windows/Rtools/
+Warning in install.packages :
+  'lib = "C:/Program Files/R/R-4.0.5/library"' is not writable
+Warning in install.packages :
+  디렉토리 'C:\Users\Admin\OneDrive\??'를 만들 수 없습니다. 그 이유는 'Invalid argument'입니다. 
+Error in install.packages : unable to create ‘C:/Users/Admin/OneDrive/??/R/win-library/4.0’
+
+오류가 나는 이유: Programfiles에 경로의 공백이 존재하는 경우가 있기 때문.
+
+해결방법) R(base) 제거 후 C드라이브 바로 밑에 새로 설치한다.
+
+만약 프로그램 파일의 경로 공백 문제가 아니라면, 사용자 계정 및 컴퓨터 이름이 한글로 되어 있는지 체크하고, 영어로 변경한다.
+
+임시방편) 임의의 폴더 새로 만들어 라이브러리 경로 새로 지정.
+
+library 경로 지정 및 확인
+
+.libPaths() 를 하면 현재 사용하고 있는 라이브러리 경로가 나온다.
+
+.libPaths(임의의 폴더 위치) 를 하면 라이브러리 경로 위치가 바뀌어 여기에 문제가 없다면 저장이 가능하다!
+
+*** R에서는 위치 지정할 때 역슬래시 사용 x. 일반 슬래시 사용.
+
+라이브러리 경로 지정의 경우엔, R을 새로 시작하여 패키지를 설치하거나 또는 패키지를 등록할 때마다 새로 경로 지정을 해 주어야 하는 문제가 있다. 되도록이면 재설치를 하자 ^-^....
