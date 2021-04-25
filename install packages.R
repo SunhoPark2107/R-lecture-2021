@@ -1,0 +1,5 @@
+install.packages("dplyr")
+install.packages("ggplot2")
+install.packages("mark down")
+install.packages("knitr")
+install.packages("data.table")
