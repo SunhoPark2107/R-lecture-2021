@@ -40,7 +40,7 @@ summarize(group_by(asia_pop, country), life_avg=mean(lifeExp)) %>%
     arrange(desc(life_avg))%>%
     head(5)
 
-#연습
+#연습(책에 안 나온 부분)
 #mag(mile-per-gallon) 데이터, ggplot2 라이브러리 사용.
 
 library(ggplot2)
@@ -49,8 +49,39 @@ head(mpg)
 
 glimpse(mpg)               # 데이터 훑어보기
 summary(mpg)               # 요약 통계량
+str(mpg)                   
 
-df <- mpg
+# 통합 연비 변수 컬럼 추가.
+mpg$total <- (mpg$cty + mpg$hwy)/2
+head(mpg)
+mpg$total
+summary(mpg$total)
+hist(mpg$total)
 
+# 평균연비가 20 이상이면 합격, 아니면 불합격
+mpg$test <- ifelse(mpg$total >= 20, 'pass', 'fail')
+table(mpg$test)
+head(mpg)
+qplot(mpg$test)
 
+# 평균연비가 30 이상이면 A등급, 20이상이면 B등급, 아니면 C등급.
+mpg$grade <- ifelse(mpg$total >= 30, 'A', 
+                    ifelse(mpg$total >= 20, 'B', 'C'))
 
+table(mpg$grade)
+mpg
+
+# mutate
+mpg %>%
+    mutate(grade2 = ifelse(mpg$total >= 30, 'A', 
+                           ifelse(mpg$total >= 20, 'B', 'C')))
+
+table(mpg$grade2)       # 결과 나오지 않음. 왜냐면 grade2는 mpg라는 데이터 세트에 저장되어있지 않기 때문.
+
+# 일시적으로 grade2라는 변수를 생성.
+# 영구적으로 grade2라는 변수를 만들고 싶다면 데이터에 mutate결과를 저장.
+mpg <- mpg %>%
+    mutate(grade2 = ifelse(mpg$total >= 30, 'A', 
+                           ifelse(mpg$total >= 20, 'B', 'C')))
+
+table(mpg$grade2)
