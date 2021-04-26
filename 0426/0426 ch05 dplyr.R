@@ -1,6 +1,6 @@
 # dplyr 라이브러리를 이용한 데이터 가공
 # 우리가 알아야 할 dplyr 함수들
-# filter, select, arrange, summarize(group_by) , mutate
+# filter, select, arrange, summarise(group_by) , mutate
 # 행 추출, 열 추출, 정렬(오름차(ascending, default값), 내림차(descending)), 데이터를 변수별로 묶어서 연산값을 출력 , 데이터를 새로운 열로 생성.
 # %>% (함수를 가독성 있고 편하게 쓰기 위한 것. 다른 함수와 이어 줄 수 있어 직관적으로 코드를 짤 수 있다.)
 
@@ -12,7 +12,7 @@ select(gapminder, country, year, lifeExp)
 select(gapminder, country, year, lifeExp) %>% head()
 select(gapminder, country, year, lifeExp) %>% head(10)
 
-# filter - 원하는 행을 추출.
+# filter - 원하는 행을 추출. *** 데이터 명, col/row 명은 안 싸줘도 되지만 요소명은 꼭! 따옴표로 싸 주는 것 잊지 말기!
 filter(gapminder, country == 'Croatia')
 filter(gapminder, country == 'Croatia' & year >= 2000)
 filter(gapminder, continent == 'Europe' & year == 2007)
@@ -29,14 +29,14 @@ arrange(africa_pop, desc(lifeExp)) %>% head(5)
 filter(gapminder, continent == 'Africa' & year == 2007) %>% arrange(desc(lifeExp)) %>% head(5)
 gapminder %>% filter(continent == 'Africa' & year == 2007) %>% arrange(desc(lifeExp)) %>% head(5) # 가장 많이 쓰는 패턴.
 
-# 4. group_by 와 summarize
-summarize(africa_pop, pop_avg=mean(pop))                        # 2007년 아프리카 국가별 평균 인구 수 
-summarize(group_by(gapminder, continent), pop_avg=mean(pop))    # 대륙별 인구평균(*얘는 연도 지정은 안 된 것!)
-summarize(group_by(gapminder, country), life_avg=mean(lifeExp)) # 나라별 평균 기대수명
+# 4. group_by 와 summarise
+summarise(africa_pop, pop_avg=mean(pop))                        # 2007년 아프리카 국가별 평균 인구 수 
+summarise(group_by(gapminder, continent), pop_avg=mean(pop))    # 대륙별 인구평균(*얘는 연도 지정은 안 된 것!)
+summarise(group_by(gapminder, country), life_avg=mean(lifeExp)) # 나라별 평균 기대수명
 
 asia_pop <- gapminder %>%
     filter(continent == 'Asia')
-summarize(group_by(asia_pop, country), life_avg=mean(lifeExp)) %>%
+summarise(group_by(asia_pop, country), life_avg=mean(lifeExp)) %>%
     arrange(desc(life_avg))%>%
     head(5)
 
@@ -71,7 +71,26 @@ mpg$grade <- ifelse(mpg$total >= 30, 'A',
 table(mpg$grade)
 mpg
 
-# mutate
+gapminder %>%
+    filter(continent == 'Asia') %>%
+    group_by(country) %>%                           # group_by 와 summarise를 떨어뜨려 줌.
+    summarise(life_avg = mean(lifeExp)) %>%
+    arrange(desc(life_avg)) %>%
+    head(5)                                    # 파이프로 쭉 잇고 싶으면 한번에 하나의 함수씩만 써야 함. 괄호 안에 다른 함수 포함하는 형식으로 쓰일 수 없다
+
+
+
+# 2007년도 인구수가 5000만 이상인 국가 중 기대수명 상위 5개국
+gapminder %>%
+    filter(year == 2007 & pop >= 5e7) %>%
+    group_by(country) %>%
+    summarise(life_avg=mean(lifeExp)) %>%
+    arrange(desc(life_avg)) %>%
+    head(5)
+
+
+
+# 5. mutate - 새로운 변수 추가
 mpg %>%
     mutate(grade2 = ifelse(mpg$total >= 30, 'A', 
                            ifelse(mpg$total >= 20, 'B', 'C')))

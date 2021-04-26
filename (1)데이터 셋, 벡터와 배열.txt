@@ -15,7 +15,7 @@ plot(x, col = 'color', xlab = 'name', ylab = 'name' pch = 1~25)
 ggplot2 사용법
 
 %>%(파이프)는 dplyr(디플라이)가 제공하는 명령어를 연결하는 연산자.
-그래프 형식에는 histogram(히스토그램), point(산점도), Bar(막대그래프), boxplot(박스플롯) 등이 있다.(더 다양함. 향후 차트 공부 따로 하기.)
+그래프 형식에는 histogram(히스토그램), point(산점도), Bar(막대그래프), boxplot(박스플롯), line(선 그래프) 등이 있다.(더 다양함. 향후 차트 공부 따로 하기.)
 
 데이터셋명%>%ggplot(aes(변수명))+geom_그래프형식(aes(col=각기 다른 색을 줄 변수명, pch=각기 다른 점 모양을 줄 변수명), size = 점 크기 숫자로 표현)+labs(title="제목", x = "x축 제목, y = "y축 제목")
 

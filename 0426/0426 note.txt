@@ -1,0 +1,19 @@
+? 갑분 sql
+나중에 파이썬 배우면 이런 식으로 DB 다루게 됨. (filter, selection)
+
+select * from gapminder
+where country = 'croatia'
+order by year
+limit 10
+group by continent
+having (조건)
+
+A->B->C로 변했다고 한다면..
+
+연평균 증가율은 어떻게 될까?
+
+((C셀/A셀)^(1/n))-1
+
+CAGR (연평균 증가율)
+
+
