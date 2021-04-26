@@ -329,6 +329,20 @@ arrange(mpg_copy, desc(avg_FE)) %&gt;%
 ## 1 new beetle
 ## 2 jetta     
 ## 3 new beetle</code></pre>
+<pre class="r"><code># 4) 문제 한줄로 1) 2) 3)
+
+
+mpg %&gt;%
+  mutate(mer_FE = (hwy + cty), avg_FE = mer_FE/2) %&gt;%
+  arrange(desc(avg_FE)) %&gt;%
+  head(3)</code></pre>
+<pre><code>## # A tibble: 3 x 13
+##   manufacturer model   displ  year   cyl trans   drv     cty   hwy fl    class  
+##   &lt;chr&gt;        &lt;chr&gt;   &lt;dbl&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;chr&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; &lt;chr&gt;  
+## 1 volkswagen   new be~   1.9  1999     4 manual~ f        35    44 d     subcom~
+## 2 volkswagen   jetta     1.9  1999     4 manual~ f        33    44 d     compact
+## 3 volkswagen   new be~   1.9  1999     4 auto(l~ f        29    41 d     subcom~
+## # ... with 2 more variables: mer_FE &lt;int&gt;, avg_FE &lt;dbl&gt;</code></pre>
 </div>
 </div>
 <div id="mpg-데이터의-class는-suv-compact-등-자동차를-특징에-따라-일곱-종류로-분류한-변수입니다.-어떤-차종의-연비가-높은지-비교해보려고-합니다.-class별-cty-평균을-구해보세요." class="section level4">

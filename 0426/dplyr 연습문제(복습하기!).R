@@ -167,6 +167,10 @@ mpg %>%
 # 출처: https://rfriend.tistory.com/240 [R, Python 분석과 프로그래밍의 친구 (by R Friend)]
 
 
+mpg %>% 
+    mutate(HwCty = (hwy + cty),avg_HwCty = HwCty/2) %>%
+    arrange(desc(avg_HwCty)) %>% 
+    head(3)
 
 
 

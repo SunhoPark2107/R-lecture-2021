@@ -137,6 +137,14 @@ arrange(mpg_copy, desc(avg_FE)) %>%
 
 arrange(mpg_copy, desc(avg_FE))[1:3, "model"]
 
+# 4) 문제 한줄로 1) 2) 3)
+
+
+mpg %>%
+  mutate(mer_FE = (hwy + cty), avg_FE = mer_FE/2) %>%
+  arrange(desc(avg_FE)) %>%
+  head(3)
+
 ```
 
 
