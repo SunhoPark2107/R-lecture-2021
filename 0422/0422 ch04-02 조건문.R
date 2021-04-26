@@ -45,7 +45,8 @@ students
 students$'평균'                               # 한글도 변수명으로 사용 가능하다.
 students['학점'] = ifelse(students$평균 >=90, 'A', 
                         ifelse(students$평균 >= 80, 'B',
-                               ifelse(students$평균 >= 70, 'C', 'D')))
+                               ifelse(students$평균 >= 70, 'C', 'D')))      # 여러 개의 범주로 나누어 주는 조건을 걸고 싶을 때는
+                                                                            #ifelse를 사용하는 것이 가장 편하고 한줄로 조건 설정 할 수 있다.
 
 students
 

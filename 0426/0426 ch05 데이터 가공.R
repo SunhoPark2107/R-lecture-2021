@@ -17,7 +17,7 @@ gapminder[1000:1009, c('country', 'lifeExp', 'year')] # 여기서 행 조건 주
 gapminder[gapminder$country == 'Croatia', ]     # 크로아티아(행)의 모든 변수 데이터(열) 가져오라
 gapminder[gapminder$country == 'Croatia', c('year', 'pop')]  
 
-### 데이터 세트/테이블/프레임/변수명 등등 이름은 """대소문자 구분"""을 잘 해주어야 함! (엥간하면 이름은 tap으로 넘어가자)
+### 데이터 세트/테이블/프레임/변수명 등등 이름은 """대소문자 구분"""을 잘 해주어야 함! (엥간하면 tap으로 넘어가자)
 
 
 # 크로아티아의 1990 년도 이후의 연도, 기대수명과 인구
