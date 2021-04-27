@@ -36,6 +36,15 @@ mpg_finddispl %>%
     arrange(desc(avg_hwy))
 
 
+# ============= 위에서 나온 거 한 줄로 나오게 합쳐도 됨.=====================   범주형이 나오면 mutate 활용할 생각을 하자!
+mpg %>%
+    mutate(displ45=ifelse(dspl <= 4, 'dspl4', 'dspl5')) %>%
+    group_by(displ45) %>%
+    summarise(avg_hwy = mean(hwy)) %>%
+    arrange(desc(avg_hwy))
+
+
+
 # 연습문제 2 자동차 제조 회사에 따라, audi, toyota 두 자동차 제조업체의 cty연비의 평균을 비교.
 # 식: audi, toyota만 추출한 뒤 두개를 그룹으로 묶어 cty평균으로 요약하여 출력.
 
@@ -57,15 +66,14 @@ mpg %>%
 # 전체 평균을 구하여라...? 제조사별로 비교하는게 아닌가?
 mpg %>%
     filter(manufacturer %in% c('chevrolet', 'ford', 'honda')) %>%
-    summarise(avg_hwy=mean(hwy)) %>%
-    arrange(desc(avg_hwy))
+    summarise(avg_hwy=mean(hwy))
 
 # 연습문제 4. mpg 데이터는 11개 변수로 구성되어 있습니다. 이 중 일부만 추출해서 분석에 활용하려고 합니다.
 # mpg 데이터에서 class(자동차 종류), cty(도시 연비) 변수를 추출해 새로운 데이터를 만드세요.
 # 새로 만든 데이터의 일부를 출력해서 두 변수로만 구성되어 있는지 확인하세요.
 
 class_cty <- mpg %>%
-    select(class, cty)
+    select(class, cty)                     # 변수(열) 추출은 select
 
 head(class_cty)
 
@@ -78,6 +86,7 @@ class_cty %>%
     group_by(class) %>%
     summarise(avg_cty = mean(cty))%>%
     arrange(desc(avg_cty))
+
 
 # 연습문제 6. "audi"에서 생산한 자동차 중에 어떤 자동차 모델의 hwy(고속도로 연비)가 높은지 알아보려고 합니다.
 # "audi"에서 생산한 자동차 중 hwy가 1~5위에 해당하는 자동차의 데이터를 출력하세요.
@@ -114,6 +123,12 @@ arrange(mpg_copy, desc(avg_FE)) %>%
 
 arrange(mpg_copy, desc(avg_FE))[1:3, "model"]
 
+
+# 4) 번 문제
+mpg %>%
+    mutate(mer_FE = (cty + hwy), avg_FE = (mer_FE / 2)) %>%
+    arrange(desc(avg_FE)) %>%
+    head(3)
 
 
 # 8. mpg 데이터의 class는 "suv", "compact" 등 자동차를 특징에 따라 일곱 종류로 분류한 변수입니다.
@@ -155,8 +170,8 @@ mpg %>%
 mpg %>%
     filter(class == 'compact') %>%
     group_by(manufacturer) %>%
-    summarise(n = n()) %>%
-    arrange(desc(n))
+    summarise(number_mpg = n()) %>%                      # n_distinct / 중복된 행을 제외하고 행을 세어 주는 것.
+    arrange(desc(number_mpg))                            # n / 행의 개수를 세어 주는 것.
 
     
 
