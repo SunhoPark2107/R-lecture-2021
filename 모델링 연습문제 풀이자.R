@@ -21,6 +21,11 @@ g1 <- galton_v %>%
     select(Father_cm, Height_cm)
 
 
+ggplot(g1, aes(Father_cm, Height_cm)) +
+    geom_point(position='jitter', color='purple') +
+    geom_abline(intercept=coef(m)[1], slope=coef(m)[2], 
+                color='purple', size=1)
+
 head(g1)
 
 m <- lm(Height_cm~Father_cm, data = g1)
