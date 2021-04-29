@@ -1,0 +1,27 @@
+geom_point() 
+
+ 산점도
+
+ geom_col()
+
+ 막대그래프
+
+ X축, Y축을 모두 설정 
+
+ geom_bar()
+
+ 막대그래프
+
+ X축만 설정, Y축은 해당 데이터의 수량
+
+ geom_line()
+
+ 선 그래프
+
+ geom_boxplot() 
+
+ 박스 그래프 
+
+
+
+출처: https://realab.tistory.com/20 [안녕!]
