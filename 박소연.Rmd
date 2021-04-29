@@ -1,0 +1,96 @@
+---
+title: "Soyeon Learns Modeling"
+author: "Soyeon Park"
+date: '2021 4 29 '
+output: html_document
+---
+
+# 0429 연습문제
+### 아버지와 아들의 키의 회귀식을 구해보고 의미를 파악해 보시오.
+
+
+```{r}
+library(dplyr)
+library(ggplot2)
+galton_v <- read.table("http://www.randomservices.org/random/data/Galton.txt", sep = "", header = T)
+```
+
+
+불러온 galton 데이터 정리(아버지와 아들의 키 데이터만 cm로 정리된 데이터 g1)
+
+```{r}
+g1 <- galton_v %>% 
+    filter(Gender == "M") %>% 
+    mutate("Height_cm" = 2.54 * Height, "Father_cm" = 2.54 * Father) %>% 
+    select(Father_cm, Height_cm)
+
+head(g1)
+```
+
+g1 데이터의 선형회귀모델 m.
+
+```{r}
+m <- lm(Height_cm~Father_cm, data = g1)
+```
+
+g1 데이터 산점도 + 선형회귀모델 m 적용
+
+```{r}
+plot(g1)
+abline(m, col = "purple", lwd = 3)
+```
+
+기울기랑 y절편. 즉 회귀식 y =  97.1776370x + 0.4477479
+
+```{r}
+coef(m) 
+```
+
+Father_cm    0.44775    0.04894    9.15   <2e-16 *** => p값이 0.05 이하이므로 두 변수간의 상관관계가 유의함. 그러나 Adjusted R-squared:  0.1513로 추정한 모델 m의 자료 적합도는 낮다.
+```{r}
+summary(m)  
+```
+
+각각의 그래프가 뭘 뜻하는지는 모르겠지만 1,3번째 그래프의 기울기가 0에 가깝고 2번째 그래프의 기울기가 1에 가까우므로 두 변수 간 유의한 상관관계가 있다고 볼 수 있음.
+```{r}
+par(mfrow = c(2, 2))
+plot(m)
+par(mfrow = c(1,1))
+```
+
+
+평균제곱오차
+```{r}
+deviance(m) / length(g1$Height_cm)
+```
+
+분산분석. 차수가 높아질수록 p-value가 떨어진다. 이게 뭘 의미하는지는 모르겠다.
+
+```{r}
+colors <- c('red', 'purple', 'dark orange', 'blue')
+plot(g1)
+x <- seq(150, 200, length.out = 501) 
+
+for (i in 1:4) {
+    m <- lm(Height_cm~poly(Father_cm, i), data = g1)
+    assign(paste('m', i, sep = '.'), m)
+    y <- predict(m, data.frame(Father_cm = x))
+    lines(x, y, col = colors[i], lwd = 2)
+}
+
+summary(m.4)
+
+anova(m.1, m.2, m.3, m.4)
+```
+
+
+
+
+
+
+
+
+
+
+
+
