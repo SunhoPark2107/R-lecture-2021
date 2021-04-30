@@ -48,7 +48,7 @@ deviance(m) / length(g1$Height_cm)     # 평균제곱오차
 
 colors <- c('red', 'purple', 'dark orange', 'blue')
 plot(g1)
-x <- seq(150, 200, length.out = 501) 
+x <- seq(150, 200, length.out = 10) 
 for (i in 1:4) {
     m <- lm(Height_cm~poly(Father_cm, i), data = g1)
     assign(paste('m', i, sep = '.'), m)
@@ -57,11 +57,13 @@ for (i in 1:4) {
 }
 
 
-
 anova(m.1, m.2, m.3, m.4)
 
 summary(m.4)
 
 summary(m.1)
 
+plot(model)
+
+plot(m)
 

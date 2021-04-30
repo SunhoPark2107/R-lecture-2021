@@ -115,7 +115,7 @@ summary(lm2)
 
 # cars 1차식부터 4차식까지
 
-x <- seq(4, 25, length.out = 211) 
+x <- seq(4, 25, length.out = 21) 
 colors <- c('red', 'purple', 'dark orange', 'blue')
 plot(cars)
 for (i in 1:4) {
@@ -145,3 +145,7 @@ y <- predict(m2, data.frame(height = x))
 lines(x, y, col = "blue", lwd = 2)
 
 summary(m2)
+
+
+nx1 <- data.frame(speed = c(21.5))              # 숫자값이 하나더라도 데이터 프레임으로 만들어 주어야 한다.
+predict(car_model, nx1)
