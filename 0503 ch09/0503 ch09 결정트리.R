@@ -51,3 +51,41 @@ pred <- predict(dtc, iris_test, type = 'class')
 
 # 평가
 confusionMatrix(pred, iris_test$Species)
+
+# 비율대로 훈련/테스트 데이터셋 만들기
+train_index <- createDataPartition(iris$Species, p=0.8, list = F)    # matrix형태로 불러올 것이므로 list = F
+# ?createDataPartition
+iris_train <- iris[train_index, ]
+iris_test <- iris[-train_index, ]
+table(iris_train$Species)
+table(iris_test$Species)
+
+# 학습
+dtc <- rpart(Species ~ . , iris_train)          # 여기에 model명 자리에 lm, rpart, randomforest, knn 등등 적용하여 만들고 싶은 모델만 바꾸어 주면 밑에 과정은 모두 동일하거나 비슷함.
+
+# 예측
+pred <- predict(dtc, iris_test, type = "class")
+
+# 평가
+confusionMatrix(pred, iris_test$Species)
+
+# 시각화
+
+rpart.plot(dtc)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
