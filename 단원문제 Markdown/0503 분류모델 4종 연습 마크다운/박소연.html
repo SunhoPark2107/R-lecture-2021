@@ -352,11 +352,11 @@ confusionMatrix(pred_svmu, ucla_test$admit)      # svm 모델 정확도는 67퍼
 <div id="k-nn모델" class="section level1">
 <h1>k-nn모델</h1>
 <pre class="r"><code>library(class)      # knn 함수 포함되어 있는 패키지.
-knn_u &lt;- knn(ucla_train[, 1:3], ucla_test[, 1:3], ucla_train$admit, k=10)
+knn_u &lt;- knn(ucla_train[, 2:4], ucla_test[, 2:4], ucla_train$admit, k=10)
 
 knn_u</code></pre>
-<pre><code>##  [1] 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 1 0 0
-## [39] 0 0 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 1 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 0
+<pre><code>##  [1] 1 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0
+## [39] 1 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 1 0 0
 ## [77] 0 0 1
 ## Levels: 0 1</code></pre>
 <pre class="r"><code>ucla_test$admit</code></pre>
@@ -369,26 +369,26 @@ knn_u</code></pre>
 ## 
 ##           Reference
 ## Prediction  0  1
-##          0 54 11
-##          1  0 14
+##          0 51 18
+##          1  3  7
 ##                                           
-##                Accuracy : 0.8608          
-##                  95% CI : (0.7645, 0.9284)
+##                Accuracy : 0.7342          
+##                  95% CI : (0.6228, 0.8273)
 ##     No Information Rate : 0.6835          
-##     P-Value [Acc &gt; NIR] : 0.0002491       
+##     P-Value [Acc &gt; NIR] : 0.19982         
 ##                                           
-##                   Kappa : 0.635           
+##                   Kappa : 0.2675          
 ##                                           
-##  Mcnemar&#39;s Test P-Value : 0.0025688       
+##  Mcnemar&#39;s Test P-Value : 0.00225         
 ##                                           
-##             Sensitivity : 1.0000          
-##             Specificity : 0.5600          
-##          Pos Pred Value : 0.8308          
-##          Neg Pred Value : 1.0000          
+##             Sensitivity : 0.9444          
+##             Specificity : 0.2800          
+##          Pos Pred Value : 0.7391          
+##          Neg Pred Value : 0.7000          
 ##              Prevalence : 0.6835          
-##          Detection Rate : 0.6835          
-##    Detection Prevalence : 0.8228          
-##       Balanced Accuracy : 0.7800          
+##          Detection Rate : 0.6456          
+##    Detection Prevalence : 0.8734          
+##       Balanced Accuracy : 0.6122          
 ##                                           
 ##        &#39;Positive&#39; Class : 0               
 ## </code></pre>
@@ -743,6 +743,45 @@ u_rf500</code></pre>
 ##  1  2  3 
 ## 11 14  9</code></pre>
 </div>
+</div>
+<div id="로지스틱-회귀" class="section level1">
+<h1>로지스틱 회귀</h1>
+<pre class="r"><code>lrw &lt;- glm(Y ~ . , wine_train, family = binomial)</code></pre>
+<pre><code>## Warning: glm.fit: algorithm did not converge</code></pre>
+<pre><code>## Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred</code></pre>
+<pre class="r"><code>lrw_pred &lt;- predict(lrw, wine_test, type = &#39;response&#39;)
+lrw_pred</code></pre>
+<pre><code>##           10           13           14           17           20           29 
+## 2.220446e-16 2.220446e-16 2.220446e-16 2.220446e-16 2.220446e-16 2.220446e-16 
+##           33           42           44           50           59           62 
+## 2.220446e-16 2.220446e-16 4.531442e-10 2.220446e-16 2.220446e-16 1.000000e+00 
+##           64           65           71           83           87           91 
+## 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 
+##          111          112          118          120          125          129 
+## 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 
+##          130          139          147          152          156          161 
+## 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00 
+##          163          164          172          178 
+## 1.000000e+00 1.000000e+00 1.000000e+00 1.000000e+00</code></pre>
+<pre class="r"><code>lrw_pred &lt;- ifelse(lrw_pred &gt; 0.5, 1, 0)
+tw &lt;- table(lrw_pred, wine_test$Y)
+lrw_acc &lt;- (tw[1,1] + tw[2,2]) / nrow(wine_test)
+lrw_acc</code></pre>
+<pre><code>## [1] 0.7352941</code></pre>
+</div>
+<div id="각-모델의-정확도-확인하여-보기.-1" class="section level1">
+<h1>각 모델의 정확도 확인하여 보기.</h1>
+<pre class="r"><code>tw &lt;- table(pred_dtw, wine_test$Y) 
+dtw_acc &lt;- (tw[1,1] + tw[2,2])/nrow(wine_test)
+rw &lt;- table(pred_rfw, wine_test$Y)
+rfw_acc &lt;- (rw[1,1] + rw[2,2])/nrow(wine_test)
+sw &lt;- table(pred_svmw, wine_test$Y)
+sw_acc &lt;- (sw[1,1] + sw[2,2])/nrow(wine_test)
+kw &lt;- table(knn_w, wine_test$Y)
+kw_acc &lt;- (kw[1,1] + kw[2,2])/nrow(wine_test)
+
+print(paste(dtw_acc, rfw_acc, sw_acc, kw_acc, lrw_acc))</code></pre>
+<pre><code>## [1] &quot;0.676470588235294 0.705882352941177 0.735294117647059 0.558823529411765 0.735294117647059&quot;</code></pre>
 </div>
 
 

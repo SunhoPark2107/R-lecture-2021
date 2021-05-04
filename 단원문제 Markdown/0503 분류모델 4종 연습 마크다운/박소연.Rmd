@@ -82,7 +82,7 @@ confusionMatrix(pred_svmu, ucla_test$admit)      # svm 모델 정확도는 67퍼
 
 ```{r}
 library(class)      # knn 함수 포함되어 있는 패키지.
-knn_u <- knn(ucla_train[, 1:3], ucla_test[, 1:3], ucla_train$admit, k=10)
+knn_u <- knn(ucla_train[, 2:4], ucla_test[, 2:4], ucla_train$admit, k=10)
 
 knn_u
 ucla_test$admit
@@ -201,7 +201,35 @@ table(pred_svm_u100)
 table(pred_svm_w50)
 ```
 
+# 로지스틱 회귀
 
+```{r}
+lrw <- glm(Y ~ . , wine_train, family = binomial)
+lrw_pred <- predict(lrw, wine_test, type = 'response')
+lrw_pred
+lrw_pred <- ifelse(lrw_pred > 0.5, 1, 0)
+tw <- table(lrw_pred, wine_test$Y)
+lrw_acc <- (tw[1,1] + tw[2,2]) / nrow(wine_test)
+lrw_acc
+```
+
+
+
+# 각 모델의 정확도 확인하여 보기.
+
+
+```{r}
+tw <- table(pred_dtw, wine_test$Y) 
+dtw_acc <- (tw[1,1] + tw[2,2])/nrow(wine_test)
+rw <- table(pred_rfw, wine_test$Y)
+rfw_acc <- (rw[1,1] + rw[2,2])/nrow(wine_test)
+sw <- table(pred_svmw, wine_test$Y)
+sw_acc <- (sw[1,1] + sw[2,2])/nrow(wine_test)
+kw <- table(knn_w, wine_test$Y)
+kw_acc <- (kw[1,1] + kw[2,2])/nrow(wine_test)
+
+print(paste(dtw_acc, rfw_acc, sw_acc, kw_acc, lrw_acc))
+```
 
 
 

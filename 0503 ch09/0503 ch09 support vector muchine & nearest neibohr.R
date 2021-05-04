@@ -39,6 +39,8 @@ table(selfd001, iris_train$Species)
 # K-NN(Nearest Neighbor)
 
 library(class)
+
+head(iris)
 k <- knn(iris_train[ , 1:4], iris_test[ , 1:4], 
          iris_train$Species, k=5)
 k
