@@ -48,8 +48,6 @@ kn <- train(Species ~ ., data = iris, method = 'knn',
 
 dotplot(resample)
 
-resample <- resamples(list(결정트리 = dt, 랜덤포레스트 = rf, SVM = sv, KNN = kn))   # resample이라는 변수에 
+resample <- resamples(list(결정트리 = dt, 랜덤포레스트 = rf, SVM = sv, KNN = kn))   # resample이라는 변수에 resamples 함수로 리스트 지정해 주어 묶는다.
 summary(resample)
 sort(resample, decreasing = T)             # accuracy가 큰 순서대로 정렬.
-
-

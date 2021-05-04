@@ -147,7 +147,7 @@ plot(rf_w)
 
 
 # 모델 3종 예측모델 만들기
-pred_dtw <- predict(dt_w, wine_test, type = "class")
+pred_dtw <- predict(dt_w, wine_test, type = "class")    # type 은 y의 변수 속성(형태)를 말한다.
 pred_rfw <- predict(rf_w, wine_test, type = "class")
 pred_svmw <- predict(svm_w, wine_test, type = "class")
 

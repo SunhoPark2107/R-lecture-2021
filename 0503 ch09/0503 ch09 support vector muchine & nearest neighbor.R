@@ -50,7 +50,6 @@ confusionMatrix(k, iris_test$Species)
 # train 함수로 코딩하기
 library(caret)
 library(randomForest)
-library(svmRadial)
 dt <- train(Species ~ . , data = iris, method = 'rpart')
 rf <- train(Species ~ . , data = iris, method = 'randomForest')
 sv <- train(Species ~ . , data = iris, method = 'svmRadial')

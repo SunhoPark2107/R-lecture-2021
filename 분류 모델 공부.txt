@@ -1,0 +1,117 @@
+흐름 정리
+
+0421 라이브러리, 기본 plot, 작업 디렉토리 등 설정, ggplot 찍먹, markdown 사용법, 외부파일 읽는법
+0422 조건문 사용법
+0423 반복문과 데이터 정제(이상치, 결측값 제거 등)
+0426 데이터 가공(열 이름 읽고 쓰는 법 등), dplyr 패키지 함수
+0427 ggplot2으로 시각화 하는 법
+0428 ggplot2 시각화 심화
+0429 선형회귀 모델링(독립 1 종속 1) (lm)
+0430 다중회귀 모델링 (독립 n 종속 1) / 다양한 통계적 기초지식.
+0503 분류(factor) 모델링 (y가 범주형이어야 함.)
+0504
+
+모델링 하는 과정
+1. 데이터 전처리 (y의 범주화, train_set, test_set 만들기)
+2. 모델링(train set, 모델 훈련) (+ hyper parameter 적용)
+3. 예측(test set, 모델 예측)
+4. 모델 평가(정확도 등) => 분류 모델링의 경우 현재는 3가지 평가 위주(정확도, 정밀도, 재현률)
+
+
+1. 데이터 전처리
+
+createDataPartition은 caret 라이브러리에 포함되어 있는 함수.
+
+set.seed(2021)
+train_index <- createDataPartition(iris$Species, p=0.8, list = F) 
+      => sample보다 훈련셋 비율 나눠주는 거 훨 잘함.
+iris_train <- iris[train_index, ]  
+훈련셋 만들기 (인덱스로 앞에 만들어 놓은 80퍼 만큼의 데이터 프레임 불러오기. 열은 모두 다 쓸 것이므로 다 불러와야 함.)
+iris_test <- iris[-train_index, ]    
+테스트셋 만들기. 앞에서 훈련 셋으로 뽑은 거 말고 나머지 다 가져오기.
+data$y <- as.factor(data$y)
+
+2. 모델링
+
+분류모델은 glm(로지스틱 회귀) 와 4가지 대표적인 분류모델(rpart(결정트리), randomForest, svm, k-nn)이 있다.
+모델링 방법은
+
+dt <- rpart(Species ~ . , iris_train)             
+rf <- randomForest(Species ~ . , iris_train)      
+svm <- svm(Species ~ . , iris_train)              
+knn <- knn(iris_train[ , n:n], iris_test[ , n:n], iris_train$Species, k=n) 
+
+// 결정트리     : rpart 패키지 필요.
+// 랜덤포레스트 : randomForest 패키지 필요.
+// svm          : e1071패키지 필요.
+// knn          : class 패키지 필요.
+
+caret 패키지를 통해 다음과 같이 하는 방법도 있음
+
+dt <- train(Species ~ . , data = iris, method = 'rpart')
+rf <- train(Species ~ . , data = iris, method = 'randomForest')
+sv <- train(Species ~ . , data = iris, method = 'svmRadial')
+kn <- train(Species ~ . , data = iris, method = 'knn')
+
+이렇게 하면 형식이 통일되어서 반복작업 할 때 편하다.
+
+3. 예측
+pred_dt <- predict(dt, data_test, type = "class") 
+pred_rf <- predict(rf, data_test, type = "class")
+pred_svm <- predict(svm, data_test, type = "class")
+
+knn은 모델링 한 것 자체가 예측이 됨.
+
+   # type 은 y의 변수 속성(형태)을 뭘로 설정해서 결과값을 출력할 것인지 묻는 것.(class라면 범주 형태의 벡터로 나오고, prob이라면 확률값의 matrix가 출력된다.)
+
+4. 검증해야 하는데,
+
+1) confusionMatrix(pred, data$y) 이렇게 하면 Accuracy와 예측 실제값 테이블 볼 수 있다.
+
+2) 교차 검증(Cross Validation)
+data <- iris[sample(nrow(iris)), ] 로 무작위로 섞고,
+
+K-Fold Cross Validation 하는 방법이 있다.
+
+여기에는 for 반복문을 사용하는 방법과 train 함수에 metric = 구하고자 하는 값, trControl = control
+(control에 미리 <- trainControl(method = 'cv', number = 5)를 저장해 둔다.) 을 주어 모델 평가를 하는 방법도 있다.
+
+ 1) caret 라이브러리를 활용한 k겹 교차검증
+
+control <- trainControl(method = 'cv', number = 5)
+dt <- train(Species ~ ., data = iris, method = 'rpart',
+            metric = 'Accuracy', trControl=control)
+rf <- train(Species ~ ., data = iris, method = 'rf',
+            metric = 'Accuracy', trControl=control)
+sv <- train(Species ~ ., data = iris, method = 'svmRadial',
+            metric = 'Accuracy', trControl=control)
+kn <- train(Species ~ ., data = iris, method = 'knn',
+            metric = 'Accuracy', trControl=control)
+
+resample <- resamples(list(결정트리 = dt, 랜덤포레스트 = rf, SVM = sv, KNN = kn))  
+ # resample이라는 변수에 resamples 함수로 리스트 지정해 주어 묶는다.
+summary(resample) 하면 accuracy 관련된 내용이 정리되어 나옴.
+but 어차피 보야할 건 accuracy의 평균값밖에 없음.
+
+2) for loop 활용한 k겹 교차검증. (이 경우 recall 등 더 많은 검증값들을 사용할 수 있다는 장점이 있다.)
+
+k = 5
+q = nrow(data)/k    # 150개를 k로 나누었으니 30이 나옴.
+l = 1:nrow(data)    # 1부터 150까지.
+
+acc = 0                                                  # for loop문을 위한 초기값 지정.
+for (i in 1:k) {
+    test_list <- ((i-1)*q+1) : (i*q)                      # 1:30, 31:60, 61:90, 91:120, 121:150 즉, 1주기 전 i*q+1 : 현재 i*q
+    data_test <- data[test_list, ]                          # 위와 같이 지정된 test_list를 data_test(테스트 셋)으로 지정. 
+    data_train <- data[-test_list, ]                        # train_set을 제외한 데이터는 모두 data_train(훈련 셋)으로.
+
+    rf <- train(Species ~ . , data_train, method = 'rf')   # 훈련 데이터를 method = "rf", 즉 랜덤 포레스트로 훈련하는 행동을 rf로 저장함.
+
+    pred <- predict(rf, data_test)                            # rf 학습된 모델로 예측.
+    t <- table(pred, data_test$Species)                       # 예측모델 뽑기.
+    acc <- acc + (t[1,1] + t[2,2] + t[3,3])/ nrow(data_test)
+}                                                              # 이 작업까지는 반드시 for loop 안에서 해 줄 것!
+
+
+average_accuracy <- acc / k     # k개의 예측모델을 만들었으니 정확도도 k개로 나눔.
+average_accuracy
