@@ -9,6 +9,8 @@ library(class)
 
 # 01 colon 데이터에 랜덤 포레스트를 적용하는데, k-nn 교차검증을 k = 5, 10, 15, 20으로 바꾸어 가면서 적용하라.
 # 각각의 혼돈 행렬과 정확률을 제시하라.
+
+#############################################################################################################
 # 필수 => colon 데이터 읽어보기!! => status가 구하고자 하는 y값이 됨.(0이 완치, 1은 재발 또는 사망.)
 # install.packages("survival")
 library(survival)
@@ -19,7 +21,7 @@ clean_colon <- clean_colon[c(T, F), ]
 clean_colon$status <- factor(clean_colon$status)
 fomular <- status~rx+sex+age+obstruct+perfor+adhere+nodes+differ+extent+surg+node4
 
-###################################################################
+##############################################################################################################
 
 set.seed(2021)
 data <- clean_colon[sample(nrow(colon)), ]
@@ -57,7 +59,7 @@ colon_train <- clean_colon[train_index, ]
 colon_test <- clean_colon[-train_index, ]
 
 rf <- randomForest(fomular, colon_train)  
-
+rf
 
 # 02 353~356의 과정을 ucla 데이터에 대해 수행하여라.
 # 모델 선택하고 하이퍼 매개변수 최적화하기기
