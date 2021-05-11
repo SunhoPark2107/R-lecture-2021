@@ -16,6 +16,9 @@ url
 sub_book_list <- html_node(html, '.sub_book_list_area')
 lis <- html_nodes(sub_book_list, 'li')    
 
+html_node(html, '.sub_book_list_area') %>% 
+    html_nodes(sub_book_list, 'li')               # 변수 지정 일일이 안 하고 요렇게 해줘도 됨.
+
 
 
 title_vector <- c()
@@ -25,7 +28,7 @@ price_vector <- c()
 
 for (i in 1:25) {
     page_url <- paste0('?page=', i)
-    
+    print(page)
     for (li in lis) {
         info <- html_node(li, '.info')
         title <- info %>% 

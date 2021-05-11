@@ -11,11 +11,14 @@ res <- GET(url=url, user_agent(agent=ua))
 html <- read_html(res)
 
 table <- html %>% 
-    html_node('div.newest-list') %>% 
     html_node('table.list-wrap')
+
 trs <- table %>% 
     html_node('tbody') %>% 
     html_nodes('tr')
+
+len <- length(trs)
+
 
 target = rank %>% gsub("^\\s+|\\s+$|\n| ","",.)
 
