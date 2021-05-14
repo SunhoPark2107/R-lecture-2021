@@ -25,4 +25,3 @@ write(json_data, 'data.json')
 prettify(json_data)
 
 
-
